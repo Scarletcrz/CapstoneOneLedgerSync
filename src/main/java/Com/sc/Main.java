@@ -1,14 +1,15 @@
 package Com.sc;
 import java.awt.*;
-import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
-//import java.IOException;
+import java.IOException;
 import java.util.ArrayList;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+
 
     public static void main(String[] args) {
 
@@ -41,9 +42,10 @@ public class Main {
                     break;
             }
 
-        } while();
+        } while(!input.equalsIgnoreCase("X"));
 }
     public static void homeScreen(){
+        Transaction entry1 = new Transaction("", "",);
 
 
     }
@@ -135,18 +137,20 @@ public class Main {
 
             }
 
-        } while ();
+        } while(!subInput.equalsIgnoreCase("H"));
     }
+
+
     public static void cascadingMenu() {
         String cascadeInput;
         do {
-            System.out.print("Search reports by: ");
-            System.out.print("\t1) Month to Date.");
-            System.out.print("\t2) Previous Month.");
-            System.out.print("\t3) Year To Date.");
-            System.out.print("\t4) Previous Year.");
-            System.out.print("\t5) Vendor.");
-            System.out.print("\t0) Back to Report screen");
+            System.out.println("Search reports by: ");
+            System.out.println("\t1) Month to Date.");
+            System.out.println("\t2) Previous Month.");
+            System.out.println("\t3) Year To Date.");
+            System.out.println("\t4) Previous Year.");
+            System.out.println("\t5) Vendor.");
+            System.out.println("\t0) Back to Report screen");
 
             cascadeInput = scanner.nextLine();
             switch(cascadeInput) {
@@ -176,10 +180,16 @@ public class Main {
                     System.out.println("Invalid input.");
                     break;
             }
-        }while(cascadeInput.equalsIgnoreCase("5"));
+        }while(cascadeInput.equalsIgnoreCase("0"));
 
     }
     public static void displayAllDEntries() {}
+    public static void monthToDate(){}
+    public static void previousMonth(){}
+    public static void yearToDate(){}
+    public static void previousYear(){}
+    public static void vendor(){}
+
 
 
 }
