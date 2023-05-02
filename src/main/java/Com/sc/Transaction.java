@@ -5,13 +5,13 @@ public class Transaction {
     private String time;
     private String description;
     private String vendor;
-    private double addDepositAmount;
+    private double depositAmount;
     public Transaction(String date, String time, String description, String vendor, double addDepositAmount) {
         this.date = date;
         this.time = time;
         this.description = description;
         this.vendor = vendor;
-        this.addDepositAmount = addDepositAmount;
+        this.depositAmount = addDepositAmount;
     }
 
     public String getDate() {
@@ -47,12 +47,12 @@ public class Transaction {
     }
 
     public double getAddDepositAmount() {
-        return addDepositAmount;
+        return depositAmount;
     }
 
 
     public void setAddDepositAmount(double addDepositAmount) {
-        this.addDepositAmount = addDepositAmount;
+        this.depositAmount = addDepositAmount;
 
 
     }
@@ -63,7 +63,7 @@ public class Transaction {
                 ", time='" + time + '\'' +
                 ", description='" + description + '\'' +
                 ", vendor='" + vendor + '\'' +
-                ", addDepositAmount=" + addDepositAmount +
+                ", addDepositAmount=" + depositAmount +
                 '}';
     }
 }

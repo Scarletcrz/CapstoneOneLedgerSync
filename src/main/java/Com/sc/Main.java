@@ -31,7 +31,7 @@ public class Main {
                     makePayment();
                     break;
                 case "3":
-                    diplaysLedgerScreen();
+                    displayLedgerScreen();
                     break;
                 case "4":
                     System.out.println("Exiting");
@@ -40,8 +40,69 @@ public class Main {
 }
     public static void homeScreen(){
 
+
     }
-    public static void addDeposit(){
+    public static void addDeposit() {
+        System.out.println("Please provide deposit information below:");
+
+        System.out.println("Date of deposit:");
+        String date = scanner.nextLine();
+
+        System.out.println("Time of deposit:");
+        String time = scanner.nextLine();
+
+        System.out.println("Deposit Description:");
+        String description = scanner.nextLine();
+
+        System.out.println("");
+        String vendor = scanner.nextLine();
+
+        System.out.println( );
+        Double depositAmount = scanner.nextDouble();
+
+        Transaction newTransaction = new Transaction(date, time, description, vendor, depositAmount);
+
+        transactions.add(newTransaction);
+
+        System.out.println("Transaction added.");
+    }
+
+    public static void makePayment() {
+        System.out.println("Please provide payment information below:");
+
+        System.out.println("Date of payment:");
+        String date = scanner.nextLine();
+
+        System.out.println("Time the payment was done:");
+        String time = scanner.nextLine();
+
+        System.out.println("payment Description:");
+        String description = scanner.nextLine();
+
+        System.out.println("Name of vendor");
+        String vendor = scanner.nextLine();
+
+        System.out.println( );
+        Double depositAmount = scanner.nextDouble();
+
+        Transaction newTransaction = new Transaction(date, time, description, vendor, depositAmount);
+
+        transactions.add(newTransaction);
+
+        System.out.println("Payment added.");
+
+    }
+
+    public static void displayLedgerScreen() {
+        String input;
+//        do {
+//            System.out.println("Please choose command:");
+//            System.out.println("\t1) Display all entries.");
+//            System.out.println("\t2) Display deposits only.");
+//            System.out.println("\t3) Display payments only.");
+//            System.out.println("\t4) Cost");
+//        }
+
 
     }
 }
