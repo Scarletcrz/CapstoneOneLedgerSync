@@ -49,9 +49,6 @@ public class LedgerSync {
 }
     public static void loadReports(){
 
-        Transaction entry1 = new Transaction("2023-04-15","10:13:25","ergonomic keyboard", "Amazon", -89.50 );
-
-
     }
     public static void deposit() {
         System.out.println("Please provide deposit information below:");
@@ -65,10 +62,10 @@ public class LedgerSync {
         System.out.println("Deposit Description: ");
         String description = scanner.nextLine();
 
-        System.out.println("Vendor name: ");
+        System.out.println("Vendor of name: ");
         String vendor = scanner.nextLine();
 
-        System.out.println();
+        System.out.println("Amount:");
         double depositAmount = scanner.nextDouble();
 
         Transaction newTransaction = new Transaction(date, time, description, vendor, depositAmount);
@@ -79,7 +76,7 @@ public class LedgerSync {
             fileWriter.write("\n Deposit: " + date + "|" + time + "|" + description + "|" + vendor + "|" + depositAmount);
             fileWriter.close();
         }catch (IOException e){
-            System.out.println("Error");
+            System.out.println("Error: Please try again.");
         }
 
         System.out.println("Transaction added.");
@@ -97,15 +94,23 @@ public class LedgerSync {
         System.out.println("Payment Description:");
         String description = scanner.nextLine();
 
-        System.out.println("Name of vendor");
+        System.out.println("Name of vendor:");
         String vendor = scanner.nextLine();
 
-        System.out.println( );
+        System.out.println("Amount of Payment:" );
         Double depositAmount = scanner.nextDouble();
 
         Transaction newTransaction = new Transaction(date, time, description, vendor, depositAmount);
 
         transactions.add(newTransaction);
+        try{
+            FileWriter fileWriter = new FileWriter("./src/main/java/com/sc/transactions.txt", true );
+            fileWriter.write("\n Payment: " + date + "|" + time + "|" + description + "|" + vendor + "|" + depositAmount);
+            fileWriter.close();
+        }catch (IOException e){
+            System.out.println("Error: Please Try Again");
+        }
+
 
         System.out.println("Payment added.");
 
@@ -129,11 +134,11 @@ public class LedgerSync {
                     System.out.println("All entries:");
                     break;
                 case "D":
-                    deposit();
+                    displayDeposit();
                     System.out.println("All deposits:");
                     break;
                 case "P":
-                    makePayment();
+                    displayPayments();
                     System.out.println("All payments:");
                     break;
                 case "R":
@@ -150,7 +155,41 @@ public class LedgerSync {
 
         } while(!subInput.equalsIgnoreCase("H"));
     }
+    public static void displayAllDEntries() {
+        {
+            try {
+                FileReader transactionFile = new FileReader("./src/main/java/com/sc/transactions.txt");
+                BufferedReader bufferedReader = new BufferedReader(transactionFile);
 
+                String input;
+                while((input=bufferedReader.readLine()) !=null){
+                    String[] splitInput = input.split(Pattern.quote("|"));
+                    String dateInput = splitInput[0];
+                    String timeInput = splitInput[1];
+                    String descriptionInput = splitInput[2];
+                    String vendorInput = splitInput[3];
+                    double addDepositInput = Double.parseDouble(splitInput[4]);
+
+
+                    Transaction currentTransaction = new Transaction(dateInput,timeInput,descriptionInput,vendorInput,addDepositInput);
+                    System.out.printf("%s | %s | %s | %s | %.2f\n",
+                            currentTransaction.getDate(),
+                            currentTransaction.getTime(),
+                            currentTransaction.getDescription(),
+                            currentTransaction.getVendor(),
+                            currentTransaction.getDeposit()
+                    );
+                }
+                bufferedReader.close();
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+
+        }
+    }
+    public static void displayDeposit(){}
+    public static void displayPayments(){}
 
     public static void cascadingMenu() {
         String cascadeInput;
@@ -194,39 +233,7 @@ public class LedgerSync {
         }while(!cascadeInput.equalsIgnoreCase("0"));
 
     }
-    public static void displayAllDEntries() {
-        {
-            try {
-                FileReader transactionFile = new FileReader("./src/main/java/com/sc/transactions.txt");
-                BufferedReader bufferedReader = new BufferedReader(transactionFile);
 
-                String input;
-                while((input=bufferedReader.readLine()) !=null){
-                    String[] splitInput = input.split(Pattern.quote("|"));
-                    String dateInput = splitInput[0];
-                    String timeInput = splitInput[1];
-                    String descriptionInput = splitInput[2];
-                    String vendorInput = splitInput[3];
-                    double addDepositInput = Double.parseDouble(splitInput[4]);
-
-
-                    Transaction currentTransaction = new Transaction(dateInput,timeInput,descriptionInput,vendorInput,addDepositInput);
-                    System.out.printf("%s | %s | %s | %s | %.2f\n",
-                            currentTransaction.getDate(),
-                            currentTransaction.getTime(),
-                            currentTransaction.getDescription(),
-                            currentTransaction.getVendor(),
-                            currentTransaction.getDeposit()
-                    );
-                }
-                bufferedReader.close();
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            }
-
-        }
-    }
     public static void monthToDate(){}
     public static void previousMonth(){}
     public static void yearToDate(){}
