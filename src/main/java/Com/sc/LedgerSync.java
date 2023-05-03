@@ -3,18 +3,20 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
-public class Main {
-    static Scanner scanner = new Scanner(System.in);
+public class LedgerSync {
     static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+    static Scanner scanner = new Scanner(System.in);
+    static LocalDate today = LocalDate.now();
+
+
 
     public static void main(String[] args) {
 
-        homeScreen();
+        loadReports();
         String input;
         do{
             System.out.println("Welcome to the Accounting Ledger. Please choose an option below:");
@@ -28,7 +30,7 @@ public class Main {
 
             switch (input) {
                 case "D":
-                    addDeposit();
+                    deposit();
                     break;
                 case "P":
                     makePayment();
@@ -45,32 +47,40 @@ public class Main {
 
         } while(!input.equalsIgnoreCase("X"));
 }
-    public static void homeScreen(){
-//        Transaction entry1 = new Transaction("","","", "", "",);
+    public static void loadReports(){
+
+        Transaction entry1 = new Transaction("2023-04-15","10:13:25","ergonomic keyboard", "Amazon", -89.50 );
 
 
     }
-    public static void addDeposit() {
+    public static void deposit() {
         System.out.println("Please provide deposit information below:");
 
-        System.out.println("Date of deposit:");
+        System.out.println("Date of deposit (mm/dd/yyyy): ");
         String date = scanner.nextLine();
 
-        System.out.println("Time of deposit:");
+        System.out.println("Time of deposit: ");
         String time = scanner.nextLine();
 
-        System.out.println("Deposit Description:");
+        System.out.println("Deposit Description: ");
         String description = scanner.nextLine();
 
-        System.out.println("");
+        System.out.println("Vendor name: ");
         String vendor = scanner.nextLine();
 
         System.out.println();
-        Double depositAmount = scanner.nextDouble();
+        double depositAmount = scanner.nextDouble();
 
         Transaction newTransaction = new Transaction(date, time, description, vendor, depositAmount);
 
         transactions.add(newTransaction);
+        try{
+            FileWriter fileWriter = new FileWriter("./src/main/java/com/sc/transactions.txt", true );
+            fileWriter.write("\n Deposit: " + date + "|" + time + "|" + description + "|" + vendor + "|" + depositAmount);
+            fileWriter.close();
+        }catch (IOException e){
+            System.out.println("Error");
+        }
 
         System.out.println("Transaction added.");
     }
@@ -84,7 +94,7 @@ public class Main {
         System.out.println("Time the payment was done:");
         String time = scanner.nextLine();
 
-        System.out.println("payment Description:");
+        System.out.println("Payment Description:");
         String description = scanner.nextLine();
 
         System.out.println("Name of vendor");
@@ -119,7 +129,7 @@ public class Main {
                     System.out.println("All entries:");
                     break;
                 case "D":
-                    addDeposit();
+                    deposit();
                     System.out.println("All deposits:");
                     break;
                 case "P":
@@ -184,44 +194,46 @@ public class Main {
         }while(!cascadeInput.equalsIgnoreCase("0"));
 
     }
-    public static void displayAllDEntries() {}
+    public static void displayAllDEntries() {
+        {
+            try {
+                FileReader transactionFile = new FileReader("./src/main/java/com/sc/transactions.txt");
+                BufferedReader bufferedReader = new BufferedReader(transactionFile);
+
+                String input;
+                while((input=bufferedReader.readLine()) !=null){
+                    String[] splitInput = input.split(Pattern.quote("|"));
+                    String dateInput = splitInput[0];
+                    String timeInput = splitInput[1];
+                    String descriptionInput = splitInput[2];
+                    String vendorInput = splitInput[3];
+                    double addDepositInput = Double.parseDouble(splitInput[4]);
+
+
+                    Transaction currentTransaction = new Transaction(dateInput,timeInput,descriptionInput,vendorInput,addDepositInput);
+                    System.out.printf("%s | %s | %s | %s | %.2f\n",
+                            currentTransaction.getDate(),
+                            currentTransaction.getTime(),
+                            currentTransaction.getDescription(),
+                            currentTransaction.getVendor(),
+                            currentTransaction.getDeposit()
+                    );
+                }
+                bufferedReader.close();
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+
+        }
+    }
     public static void monthToDate(){}
     public static void previousMonth(){}
     public static void yearToDate(){}
     public static void previousYear(){}
     public static void vendor(){}
 
-    {
-        try {
-            FileReader transactionFile = new FileReader("./src/main/java/com/sc/transactions.tct");
-            BufferedReader bufferedReader = new BufferedReader(transactionFile);
 
-            String input;
-            while((input=bufferedReader.readLine()) !=null){
-                String[] splitInput = input.split(Pattern.quote("|"));
-
-                String dateInput = splitInput[0];
-                String timeInput = splitInput[1];
-                String descriptionInput = splitInput[2];
-                String vendorInput = splitInput[3];
-                double addDepositInput = Double.parseDouble(splitInput[4]);
-
-                Transaction currentTransaction = new Transaction(dateInput,timeInput,descriptionInput,vendorInput,addDepositInput,);
-                System.out.printf("Transaction Date:,",
-                    currentTransaction.getDate(),
-                    currentTransaction.getTime(),
-                    currentTransaction.getDescription(),
-                    currentTransaction.getVendor(),
-                    currentTransaction.getAddDepositAmount()
-                );
-            }
-            bufferedReader.close();
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        }
-
-    }
 
 }
 
