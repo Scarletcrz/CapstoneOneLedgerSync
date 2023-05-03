@@ -1,17 +1,17 @@
 package Com.sc;
 
-public class Transaction {
+class Transaction {
     private String date;
     private String time;
     private String description;
     private String vendor;
-    private double depositAmount;
+    private double addDepositAmount;
     public Transaction(String date, String time, String description, String vendor, double addDepositAmount) {
         this.date = date;
         this.time = time;
         this.description = description;
         this.vendor = vendor;
-        this.depositAmount = addDepositAmount;
+        this.addDepositAmount = addDepositAmount;
     }
 
     public String getDate() {
@@ -47,12 +47,12 @@ public class Transaction {
     }
 
     public double getAddDepositAmount() {
-        return depositAmount;
+        return addDepositAmount;
     }
 
 
     public void setAddDepositAmount(double addDepositAmount) {
-        this.depositAmount = addDepositAmount;
+        this.addDepositAmount = addDepositAmount;
 
 
     }
@@ -63,7 +63,7 @@ public class Transaction {
                 ", time='" + time + '\'' +
                 ", description='" + description + '\'' +
                 ", vendor='" + vendor + '\'' +
-                ", addDepositAmount=" + depositAmount +
+                ", addDepositAmount=" + addDepositAmount +
                 '}';
     }
 }
