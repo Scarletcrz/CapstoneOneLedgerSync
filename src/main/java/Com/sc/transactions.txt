@@ -1,4 +1,1 @@
-2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
-2023-04-15|11:15:00|Invoice 1001 paid|Joe|1500.00
- Deposit: 05/03/2023|01:33:00|Toy|Amazon|16.58
- Payment: 05/03/2023|01:55:00|Light|York Electric |103.0
+Payment: 12-12-2002|12:20:00|Iphone|apple|-500.0

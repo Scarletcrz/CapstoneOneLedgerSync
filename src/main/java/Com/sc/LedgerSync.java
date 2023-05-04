@@ -73,7 +73,7 @@ public class LedgerSync {
         transactions.add(newTransaction);
         try{
             FileWriter fileWriter = new FileWriter("./src/main/java/com/sc/transactions.txt", true );
-            fileWriter.write("\n Deposit: " + date + "|" + time + "|" + description + "|" + vendor + "|" + depositAmount);
+            fileWriter.write("\nDeposit: " + date + "|" + time + "|" + description + "|" + vendor + "|" + depositAmount);
             fileWriter.close();
         }catch (IOException e){
             System.out.println("Error: Please try again.");
@@ -97,15 +97,17 @@ public class LedgerSync {
         System.out.println("Name of vendor:");
         String vendor = scanner.nextLine();
 
-        System.out.println("Amount of Payment:" );
-        Double depositAmount = scanner.nextDouble();
+        System.out.print("Amount of Payment: " );
+        double depositAmount = scanner.nextDouble();
+        double negativeDepositAmount = depositAmount * -1;
+        System.out.println("Total amount paid: " + negativeDepositAmount);
 
         Transaction newTransaction = new Transaction(date, time, description, vendor, depositAmount);
 
         transactions.add(newTransaction);
         try{
             FileWriter fileWriter = new FileWriter("./src/main/java/com/sc/transactions.txt", true );
-            fileWriter.write("\n Payment: " + date + "|" + time + "|" + description + "|" + vendor + "|" + depositAmount);
+            fileWriter.write("\nPayment: " + date + "|" + time + "|" + description + "|" + vendor + "|" + negativeDepositAmount);
             fileWriter.close();
         }catch (IOException e){
             System.out.println("Error: Please Try Again");
