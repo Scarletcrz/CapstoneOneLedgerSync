@@ -1,5 +1,6 @@
 package Com.sc;
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -10,7 +11,8 @@ import java.time.format.DateTimeFormatter;
 public class LedgerSync {
     static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
     static Scanner scanner = new Scanner(System.in);
-    static LocalDate today = LocalDate.now();
+    static LocalDateTime today = LocalDateTime.now();
+
 
 
 
@@ -47,9 +49,8 @@ public class LedgerSync {
 
         } while(!input.equalsIgnoreCase("X"));
 }
-    public static void loadReports(){
+    public static void loadReports(){}
 
-    }
     public static void deposit() {
         System.out.println("Please provide deposit information below:");
 
@@ -131,28 +132,21 @@ public class LedgerSync {
             subInput = scanner.nextLine();
 
             switch (subInput.toUpperCase()) {
-                case "A":
+                case "A" -> {
                     displayAllDEntries();
                     System.out.println("All entries:");
-                    break;
-                case "D":
+                }
+                case "D" -> {
                     displayDeposit();
                     System.out.println("All deposits:");
-                    break;
-                case "P":
+                }
+                case "P" -> {
                     displayPayments();
                     System.out.println("All payments:");
-                    break;
-                case "R":
-                    cascadingMenu();
-                    break;
-                case "H":
-                    System.out.println("Exiting to home screen.");
-                    break;
-                default:
-                    System.out.print("Invalid input");
-                    break;
-
+                }
+                case "R" -> cascadingMenu();
+                case "H" -> System.out.println("Exiting to home screen.");
+                default -> System.out.print("Invalid input");
             }
 
         } while(!subInput.equalsIgnoreCase("H"));
@@ -165,22 +159,8 @@ public class LedgerSync {
 
                 String input;
                 while((input=bufferedReader.readLine()) !=null){
-                    String[] splitInput = input.split(Pattern.quote("|"));
-                    String dateInput = splitInput[0];
-                    String timeInput = splitInput[1];
-                    String descriptionInput = splitInput[2];
-                    String vendorInput = splitInput[3];
-                    double addDepositInput = Double.parseDouble(splitInput[4]);
+                    System.out.println(input);
 
-
-                    Transaction currentTransaction = new Transaction(dateInput,timeInput,descriptionInput,vendorInput,addDepositInput);
-                    System.out.printf("%s | %s | %s | %s | %.2f\n",
-                            currentTransaction.getDate(),
-                            currentTransaction.getTime(),
-                            currentTransaction.getDescription(),
-                            currentTransaction.getVendor(),
-                            currentTransaction.getDeposit()
-                    );
                 }
                 bufferedReader.close();
             } catch (IOException e) {
@@ -190,7 +170,25 @@ public class LedgerSync {
 
         }
     }
-    public static void displayDeposit(){}
+    public static void displayDeposit(){
+        {
+            try {
+                FileReader transactionFile = new FileReader("./src/main/java/com/sc/transactions.txt");
+                BufferedReader bufferedReader = new BufferedReader(transactionFile);
+
+                String input;
+                while((input=bufferedReader.readLine()) !=null){
+                        System.out.println(input);
+
+                }
+                bufferedReader.close();
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+
+        }
+    }
     public static void displayPayments(){}
 
     public static void cascadingMenu() {
@@ -236,7 +234,64 @@ public class LedgerSync {
 
     }
 
-    public static void monthToDate(){}
+    public static void monthToDate(){
+
+        FileReader transactionFile = null;
+        try {
+            transactionFile = new FileReader("./src/main/java/com/xd/transactions.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        BufferedReader bufferedReader = new BufferedReader(transactionFile);
+        String input;
+        try {
+            input = bufferedReader.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String[] splitInput = input.split(Pattern.quote("|"));
+        String timeInput = splitInput[0];
+        String dateInput = splitInput[1];
+        String descriptionInput = splitInput[2];
+        String vendorInput = splitInput[3];
+        double depositAmountInput = Double.parseDouble(splitInput[4]);
+        Transaction currentTransaction = new Transaction(timeInput, dateInput, descriptionInput, vendorInput, depositAmountInput);
+        System.out.printf("Transaction: %s, %s, %s, %s, $%.2f\n",
+                currentTransaction.getTime(),
+                currentTransaction.getDate(),
+                currentTransaction.getDescription(),
+                currentTransaction.getVendor(),
+                currentTransaction.getDeposit()
+        );
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String dateTime = dateInput + " " + timeInput;
+        LocalDateTime transactionDateTime = LocalDateTime.parse(dateTime, dateTimeFormatter);
+        LocalDateTime now = LocalDateTime.now();
+
+//        try {
+//            FileReader transactionFile = new FileReader("./src/main/java/com/sc/transactions.txt");
+//            BufferedReader bufferedReader = new BufferedReader(transactionFile);
+//
+//            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-DD HH:mm:ss");
+//            LocalDateTime transactionDateTime = LocalDateTime.parse(dateTime, dateTimeFormatter);
+//
+//            LocalDateTime now = LocalDateTime.now();
+//            int currentYear = now.getYear();
+//            int currentMonth = now.getMonthValue();
+//
+//            int transactionYear = transactionDateTime.getYear();
+//            int transactionMonth = transactionDateTime.getMonthValue();
+//
+//            if(currentYear == transactionYear && currentMonth == transactionMonth){
+//                System.out.println("Magic");
+//            }
+//
+//            bufferedReader.close();
+//        }catch (IOException e){
+//            e.printStackTrace();
+//        }
+
+    }
     public static void previousMonth(){}
     public static void yearToDate(){}
     public static void previousYear(){}

@@ -1,1 +1,2 @@
 Payment: 12-12-2002|12:20:00|Iphone|apple|-500.0
+Deposit: 12/23/2003|12:23:30|Paycheck|ACME|500.34
