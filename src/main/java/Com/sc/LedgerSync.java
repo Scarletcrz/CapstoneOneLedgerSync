@@ -54,7 +54,7 @@ public class LedgerSync {
     public static void deposit() {
         System.out.println("Please provide deposit information below:");
 
-        System.out.println("Date of deposit (mm/dd/yyyy): ");
+        System.out.println("Date of deposit (mm-dd-yyyy): ");
         String date = scanner.nextLine();
 
         System.out.println("Time of deposit: ");
@@ -74,7 +74,7 @@ public class LedgerSync {
         transactions.add(newTransaction);
         try{
             FileWriter fileWriter = new FileWriter("./src/main/java/com/sc/transactions.txt", true );
-            fileWriter.write("\nDeposit: " + date + "|" + time + "|" + description + "|" + vendor + "|" + depositAmount);
+            fileWriter.write("\n" + date + "|" + time + "|" + description + "|" + vendor + "|" + depositAmount);
             fileWriter.close();
         }catch (IOException e){
             System.out.println("Error: Please try again.");
@@ -108,7 +108,7 @@ public class LedgerSync {
         transactions.add(newTransaction);
         try{
             FileWriter fileWriter = new FileWriter("./src/main/java/com/sc/transactions.txt", true );
-            fileWriter.write("\nPayment: " + date + "|" + time + "|" + description + "|" + vendor + "|" + negativeDepositAmount);
+            fileWriter.write("\n" + date + "|" + time + "|" + description + "|" + vendor + "|" + negativeDepositAmount);
             fileWriter.close();
         }catch (IOException e){
             System.out.println("Error: Please Try Again");
