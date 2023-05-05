@@ -1,2 +1,4 @@
-Payment: 12-12-2002|12:20:00|Iphone|apple|-500.0
+Payment: 12-12-2002|12:20:00|Iphone|apple|-500.00
 Deposit: 12/23/2003|12:23:30|Paycheck|ACME|500.34
+Payment: 12-12-2003|01:02:03|Food|Chick-Fil-A|-40.00
+05/05/2023|01:02:03|Graduation Gift|Nayley|5000.00

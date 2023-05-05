@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class LedgerSync {
     static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
     static Scanner scanner = new Scanner(System.in);
-    static LocalDateTime today = LocalDateTime.now();
+//    static LocalDateTime today = LocalDateTime.now();
 
 
 
@@ -57,7 +57,7 @@ public class LedgerSync {
         System.out.println("Date of deposit (mm-dd-yyyy): ");
         String date = scanner.nextLine();
 
-        System.out.println("Time of deposit: ");
+        System.out.println("Time of deposit (HH:mm:ss): ");
         String time = scanner.nextLine();
 
         System.out.println("Deposit Description: ");
@@ -86,16 +86,16 @@ public class LedgerSync {
     public static void makePayment() {
         System.out.println("Please provide payment information below:");
 
-        System.out.println("Date of payment:");
+        System.out.println("Date of payment (mm-dd-yyyy): ");
         String date = scanner.nextLine();
 
-        System.out.println("Time the payment was done:");
+        System.out.println("Time of payment (HH:mm:ss): ");
         String time = scanner.nextLine();
 
-        System.out.println("Payment Description:");
+        System.out.println("Payment Description: ");
         String description = scanner.nextLine();
 
-        System.out.println("Name of vendor:");
+        System.out.println("Name of vendor: ");
         String vendor = scanner.nextLine();
 
         System.out.print("Amount of Payment: " );
@@ -108,7 +108,7 @@ public class LedgerSync {
         transactions.add(newTransaction);
         try{
             FileWriter fileWriter = new FileWriter("./src/main/java/com/sc/transactions.txt", true );
-            fileWriter.write("\n" + date + "|" + time + "|" + description + "|" + vendor + "|" + negativeDepositAmount);
+            fileWriter.write("\nPayment: " + date + "|" + time + "|" + description + "|" + vendor + "|" + negativeDepositAmount);
             fileWriter.close();
         }catch (IOException e){
             System.out.println("Error: Please Try Again");
